@@ -3,7 +3,8 @@
     "better-sqlite3": "^11.8.1",
     "drizzle-kit": "^0.30.5",
     "drizzle-orm": "^0.40.0",
-    "hono": "^4.7.4"
+    "hono": "^4.7.4",
+    "zod": "^3.24.2"
   },
   "name": "inventory-management-deno",
   "module": "index.ts",
