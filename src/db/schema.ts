@@ -7,9 +7,9 @@ export const users = sqliteTable("users", {
   password_hash: text("password_hash").notNull(),
   role: text("role", { enum: ["admin", "manager", "supplier", "customer"] })
     .notNull(),
-  created_at: text("created_at").notNull().default(Date.now().toString()),
-  updated_at: text("updated_at").notNull().default(Date.now().toString())
-    .$onUpdate(() => Date.now().toString()),
+  created_at: text("created_at").notNull().default(new Date().toUTCString()),
+  updated_at: text("updated_at").notNull().default(new Date().toUTCString())
+    .$onUpdate(() => new Date().toUTCString()),
 });
 
 export const products = sqliteTable("products", {
@@ -20,18 +20,18 @@ export const products = sqliteTable("products", {
   stock: integer("stock").notNull(),
   warehouse_id: integer("warehouse_id").references(() => warehouses.id),
   supplier_id: integer("supplier_id").references(() => suppliers.id),
-  created_at: text("created_at").notNull().default(Date.now().toString()),
-  updated_at: text("updated_at").notNull().default(Date.now().toString())
-    .$onUpdate(() => Date.now().toString()),
+  created_at: text("created_at").notNull().default(new Date().toUTCString()),
+  updated_at: text("updated_at").notNull().default(new Date().toUTCString())
+    .$onUpdate(() => new Date().toUTCString()),
 });
 
 export const warehouses = sqliteTable("warehouses", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   location: text("location").notNull(),
-  created_at: text("created_at").notNull().default(Date.now().toString()),
-  updated_at: text("updated_at").notNull().default(Date.now().toString())
-    .$onUpdate(() => Date.now().toString()),
+  created_at: text("created_at").notNull().default(new Date().toUTCString()),
+  updated_at: text("updated_at").notNull().default(new Date().toUTCString())
+    .$onUpdate(() => new Date().toUTCString()),
 });
 
 export const inventory = sqliteTable("inventory", {
@@ -48,9 +48,9 @@ export const suppliers = sqliteTable("suppliers", {
   name: text("name").notNull(),
   contact_info: text("contact_info").notNull(),
   address: text("address").notNull(),
-  created_at: text("created_at").notNull().default(Date.now().toString()),
-  updated_at: text("updated_at").notNull().default(Date.now().toString())
-    .$onUpdate(() => Date.now().toString()),
+  created_at: text("created_at").notNull().default(new Date().toUTCString()),
+  updated_at: text("updated_at").notNull().default(new Date().toUTCString())
+    .$onUpdate(() => new Date().toUTCString()),
 });
 
 export const replenishments = sqliteTable("replenishments", {
@@ -65,7 +65,7 @@ export const replenishments = sqliteTable("replenishments", {
       "canceled",
     ],
   }).notNull(),
-  created_at: text("created_at").notNull().default(Date.now().toString()),
+  created_at: text("created_at").notNull().default(new Date().toUTCString()),
 });
 
 export const orders = sqliteTable("orders", {
@@ -81,9 +81,9 @@ export const orders = sqliteTable("orders", {
       "canceled",
     ],
   }).notNull(),
-  created_at: text("created_at").notNull().default(Date.now().toString()),
-  updated_at: text("updated_at").notNull().default(Date.now().toString())
-    .$onUpdate(() => Date.now().toString()),
+  created_at: text("created_at").notNull().default(new Date().toUTCString()),
+  updated_at: text("updated_at").notNull().default(new Date().toUTCString())
+    .$onUpdate(() => new Date().toUTCString()),
 });
 
 export const orderItems = sqliteTable("order_items", {
@@ -107,5 +107,5 @@ export const transactions = sqliteTable("transactions", {
       "bank_transfer",
     ],
   }).notNull(),
-  created_at: text("created_at").notNull().default(Date.now().toString()),
+  created_at: text("created_at").notNull().default(new Date().toUTCString()),
 });
