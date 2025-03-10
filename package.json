@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@hono/zod-validator": "^0.4.3",
     "better-sqlite3": "^11.8.1",
     "drizzle-kit": "^0.30.5",
     "drizzle-orm": "^0.40.0",
