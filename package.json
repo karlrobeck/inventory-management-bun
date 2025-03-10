@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "drizzle-kit": "^0.30.5",
+    "drizzle-orm": "^0.40.0",
+    "hono": "^4.7.4"
+  },
+  "name": "inventory-management-deno",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "^1.2.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
