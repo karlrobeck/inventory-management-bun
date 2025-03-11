@@ -26,3 +26,12 @@ export const selectUserDTOSchema = createUserDTOSchema.pick({
 export const updateUserDTOSchema = createUserDTOSchema.partial();
 
 export const deleteUserDTOSchema = selectUserDTOSchema.pick({ id: true });
+
+export const accessTokenDTOSchema = z.object({
+  access_token: z.string().openapi({ example: "<ACCESS_TOKEN>" }),
+  refresh_token: z.string().openapi({
+    example: "<REFRESEH_TOKEN>",
+  }),
+  token_type: z.string(),
+  exp: z.number(),
+});

@@ -1,13 +1,15 @@
-import { Hono } from "hono";
-import { zValidator } from "@hono/zod-validator";
-import { createUserDTOSchema, selectUserDTOSchema } from "../db/dto/user";
+import {
+  accessTokenDTOSchema,
+  createUserDTOSchema,
+  selectUserDTOSchema,
+} from "../db/dto/user";
 import { db } from "../db";
 import { users } from "../db/schema";
 import { eq } from "drizzle-orm";
 import { createRoute } from "@hono/zod-openapi";
-import { resolver } from "hono-openapi/zod";
 import { z } from "@hono/zod-openapi";
 import { OpenAPIHono } from "@hono/zod-openapi";
+import jwt from "jsonwebtoken";
 
 export default new OpenAPIHono()
   .openapi(
@@ -55,7 +57,6 @@ export default new OpenAPIHono()
       request: {
         body: {
           description: "Email login",
-          required: true,
           content: {
             "application/json": {
               schema: createUserDTOSchema.pick({ email: true, password: true }),
@@ -64,6 +65,14 @@ export default new OpenAPIHono()
         },
       },
       responses: {
+        200: {
+          description: "Successful Login, returning access token object",
+          content: {
+            "application/json": {
+              schema: accessTokenDTOSchema,
+            },
+          },
+        },
         400: {
           description: "invalid email or password",
           content: {
@@ -73,9 +82,6 @@ export default new OpenAPIHono()
               }),
             },
           },
-        },
-        200: {
-          description: "Sucessfull registration, redirecting to /login",
         },
       },
     }),
@@ -88,13 +94,39 @@ export default new OpenAPIHono()
 
       if (!user) return c.text("invalid email or password", 400);
 
-      if (await Bun.password.verify(payload.password, user.password_hash)) {
+      if (!await Bun.password.verify(payload.password, user.password_hash)) {
         return c.text("invalid email or password", 400);
       }
 
-      // TODO: generate token here and return jwt
+      const claims = {
+        sub: user.id,
+        iss: Bun.env.JWT_ISSUER || "",
+        aud: Bun.env.JWT_AUDIENCE || "",
+        exp: Math.floor(Date.now() / 1000) + (60 * 60),
+        nbf: Math.floor(Date.now() / 1000) - 3,
+        iat: Date.now(),
+        jti: crypto.randomUUID(),
+      };
 
-      return c.text("login endpoint");
+      const access_token = jwt.sign(
+        claims,
+        Bun.env.JWT_SECRET || "ssss",
+      );
+
+      const refresh_token = jwt.sign(
+        { ...claims, exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },
+        Bun.env.JWT_REFRESH_SECRET || "ssss",
+      );
+
+      return c.json(
+        accessTokenDTOSchema.parse({
+          access_token,
+          refresh_token,
+          token_type: "Bearer",
+          exp: 60 * 60,
+        }),
+        200,
+      );
     },
   )
   .openapi(
