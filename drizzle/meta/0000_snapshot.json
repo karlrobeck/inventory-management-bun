@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "ee2ad1f0-8ba7-4d29-ba68-f11950a80130",
+  "id": "02376561-734d-4e0d-b257-f458f1c15e79",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "inventory": {
@@ -12,7 +12,7 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
         "warehouse_id": {
           "name": "warehouse_id",
@@ -84,7 +84,7 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
         "order_id": {
           "name": "order_id",
@@ -156,7 +156,7 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
         "user_id": {
           "name": "user_id",
@@ -185,7 +185,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840088'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -193,7 +193,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840088'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         }
       },
       "indexes": {},
@@ -224,7 +224,7 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
         "name": {
           "name": "name",
@@ -274,7 +274,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840087'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -282,7 +282,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840087'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         }
       },
       "indexes": {},
@@ -326,7 +326,7 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
         "product_id": {
           "name": "product_id",
@@ -362,7 +362,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840088'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         }
       },
       "indexes": {},
@@ -406,7 +406,7 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
         "name": {
           "name": "name",
@@ -435,7 +435,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840088'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -443,7 +443,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840088'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         }
       },
       "indexes": {},
@@ -460,7 +460,7 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
         "order_id": {
           "name": "order_id",
@@ -496,7 +496,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840089'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         }
       },
       "indexes": {},
@@ -527,7 +527,7 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
         "name": {
           "name": "name",
@@ -563,7 +563,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840086'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -571,7 +571,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840086'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         }
       },
       "indexes": {
@@ -596,7 +596,7 @@
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
         "name": {
           "name": "name",
@@ -618,7 +618,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840088'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -626,7 +626,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'1741611840088'"
+          "default": "'Thu, 13 Mar 2025 06:22:17 GMT'"
         }
       },
       "indexes": {},
