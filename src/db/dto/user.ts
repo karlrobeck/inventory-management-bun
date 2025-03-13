@@ -34,4 +34,4 @@ export const accessTokenDTOSchema = z.object({
   }),
   token_type: z.string(),
   exp: z.number(),
-});
+}).openapi({ title: "AccessTokenDTO" });

@@ -40,7 +40,9 @@ export const inventory = sqliteTable("inventory", {
     .notNull(),
   product_id: integer("product_id").references(() => products.id).notNull(),
   quantity: integer("quantity").notNull(),
-  last_updated: text("last_updated").notNull(),
+  last_updated: text("last_updated").notNull().$onUpdateFn(() =>
+    new Date().toUTCString()
+  ),
 });
 
 export const suppliers = sqliteTable("suppliers", {

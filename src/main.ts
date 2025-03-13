@@ -6,8 +6,16 @@ import { apiReference } from "@scalar/hono-api-reference";
 import { openAPISpecs } from "hono-openapi";
 import metadata from "../package.json";
 import { OpenAPIHono } from "@hono/zod-openapi";
+import inventory from "./api/inventory";
 
 const app = new OpenAPIHono();
+
+app.openAPIRegistry.registerComponent("securitySchemes", "bearerAuth", {
+  type: "http",
+  scheme: "bearer",
+  bearerFormat: "JWT",
+});
+
 app.use(
   logger((message, ...rest) => console.log("INFO:", new Date(), message)),
 );
@@ -16,10 +24,10 @@ console.log(Bun.env.NODE_ENV);
 
 if (Bun.env.NODE_ENV === "DEVELOPMENT") {
   app.get(
-    "/swagger",
+    "/scalar",
     apiReference({
       spec: { url: "/openapi" },
-      cdn: "https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.25.80",
+      theme: "deepSpace",
     }),
   );
   app.doc(
@@ -39,6 +47,7 @@ if (Bun.env.NODE_ENV === "DEVELOPMENT") {
 }
 
 app.route("/auth", authentication);
+app.route("/inventory", inventory);
 
 console.log("INFO:", new Date(), "Starting server at port: 3000");
 Bun.serve({ fetch: app.fetch });

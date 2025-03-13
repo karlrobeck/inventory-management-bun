@@ -14,6 +14,7 @@ import jwt from "jsonwebtoken";
 export default new OpenAPIHono()
   .openapi(
     createRoute({
+      tags: ["Authentication"],
       method: "post",
       path: "/register",
       request: {
@@ -52,6 +53,7 @@ export default new OpenAPIHono()
   )
   .openapi(
     createRoute({
+      tags: ["Authentication"],
       method: "post",
       path: "/login",
       request: {
@@ -131,6 +133,7 @@ export default new OpenAPIHono()
   )
   .openapi(
     createRoute({
+      tags: ["Authentication", "User management"],
       method: "get",
       path: "/users/:id",
       request: {
@@ -167,5 +170,4 @@ export default new OpenAPIHono()
 
       return c.json(selectUserDTOSchema.parse(user), 200);
     },
-  )
-  .delete("/logout", (c) => c.text("logout endpoint"));
+  );
