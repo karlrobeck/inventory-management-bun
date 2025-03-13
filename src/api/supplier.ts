@@ -1,5 +1,9 @@
 import { OpenAPIHono, z, createRoute } from "@hono/zod-openapi";
-import { CreateSupplierDTO, SupplierDTO } from "../db/dto/supplier";
+import {
+  CreateSupplierDTO,
+  SupplierDTO,
+  UpdateSupplierDTO,
+} from "../db/dto/supplier";
 import { db } from "../db";
 import { suppliers } from "../db/schema";
 import { eq, like } from "drizzle-orm";
@@ -40,7 +44,7 @@ export default new OpenAPIHono()
         .execute();
 
       return c.json(SupplierDTO.parse(supplier[0]), 201);
-    }
+    },
   )
   .openapi(
     {
@@ -84,9 +88,9 @@ export default new OpenAPIHono()
           page: query.page,
           items: dbSuppliers,
         },
-        200
+        200,
       );
-    }
+    },
   )
 
   .openapi(
@@ -121,7 +125,7 @@ export default new OpenAPIHono()
       const dbSuppliers = db
         .select()
         .from(suppliers)
-        .where(like(suppliers.name, `%${query.query}%`))
+        .where(like(Object(suppliers)[query.searchBy], `%${query.query}%`))
         .limit(query.limit)
         .all();
 
@@ -130,9 +134,9 @@ export default new OpenAPIHono()
           total: dbSuppliers.length,
           items: dbSuppliers,
         },
-        200
+        200,
       );
-    }
+    },
   )
   .openapi(
     {
@@ -163,5 +167,70 @@ export default new OpenAPIHono()
         .all()[0];
 
       return c.json(SupplierDTO.parse(supplier), 200);
-    }
+    },
+  )
+  .openapi(
+    {
+      tags: ["Supplier Management"],
+      method: "patch",
+      path: "/:id",
+      request: {
+        params: z.object({ id: z.coerce.number() }),
+        body: {
+          content: {
+            "application/json": {
+              schema: UpdateSupplierDTO,
+            },
+          },
+        },
+      },
+      responses: {
+        200: {
+          description: "Successfully created a supplier",
+          content: {
+            "application/json": {
+              schema: SupplierDTO,
+            },
+          },
+        },
+      },
+    },
+    async (c) => {
+      const params = c.req.valid("param");
+      const payload = c.req.valid("json");
+
+      const supplier = (
+        await db
+          .update(suppliers)
+          .set(payload)
+          .where(eq(suppliers.id, params.id))
+          .returning()
+          .execute()
+      )[0];
+
+      return c.json(SupplierDTO.parse(supplier), 200);
+    },
+  )
+  .openapi(
+    {
+      tags: ["Supplier Management"],
+      method: "delete",
+      path: "/:id",
+      request: {
+        params: z.object({ id: z.coerce.number() }),
+
+      },
+      responses: {
+        200: {
+          description: "Successfully created a supplier",
+        },
+      },
+    },
+    async (c) => {
+      const params = c.req.valid("param");
+
+      _ = await db.delete(suppliers).where(eq(suppliers.id, params.id)).execute();
+
+      return c.json({}, 200);
+    },
   );
